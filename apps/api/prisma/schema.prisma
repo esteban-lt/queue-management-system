@@ -1,0 +1,130 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Organization {
+  id        String   @id @default(uuid())
+  name      String   @db.VarChar(127)
+  slug      String   @unique @db.VarChar(127)
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  branches Branch[]
+  users    User[]
+
+  @@map("organizations")
+}
+
+model Branch {
+  id             String   @id @default(uuid())
+  organizationId String   @map("organization_id")
+  name           String   @db.VarChar(127)
+  address        String?  @db.VarChar(255)
+  isActive       Boolean  @default(true) @map("is_active")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  organization       Organization      @relation(fields: [organizationId], references: [id])
+  users              User[]
+  serviceCategories  ServiceCategory[]
+  windows            Window[]
+  tickets            Ticket[]
+
+  @@map("branches")
+}
+
+enum Role {
+  admin
+  manager
+  operator
+
+  @@map("role")
+}
+
+model User {
+  id             String   @id @default(uuid())
+  organizationId String   @map("organization_id")
+  branchId       String?  @map("branch_id")
+  name           String   @db.VarChar(127)
+  email          String   @unique @db.VarChar(127)
+  password       String   @db.VarChar(255)
+  role           Role
+  isActive       Boolean  @default(true) @map("is_active")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+  branch       Branch?      @relation(fields: [branchId], references: [id])
+  tickets      Ticket[]     @relation("AttendedBy")
+
+  @@map("users")
+}
+
+enum TicketStatus {
+  waiting
+  called
+  attending
+  completed
+  skipped
+
+  @@map("ticket_status")
+}
+
+model ServiceCategory {
+  id                  String   @id @default(uuid())
+  branchId            String   @map("branch_id")
+  name                String   @db.VarChar(127)
+  prefix              String   @db.VarChar(2)
+  avgAttentionMinutes Int?     @map("avg_attention_minutes")
+  isActive            Boolean  @default(true) @map("is_active")
+  createdAt           DateTime @default(now()) @map("created_at")
+
+  branch  Branch   @relation(fields: [branchId], references: [id])
+  windows Window[]
+  tickets Ticket[]
+
+  @@map("service_categories")
+}
+
+model Window {
+  id                String   @id @default(uuid())
+  branchId          String   @map("branch_id")
+  serviceCategoryId String   @map("service_category_id")
+  name              String   @db.VarChar(127)
+  isActive          Boolean  @default(true) @map("is_active")
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  branch          Branch          @relation(fields: [branchId], references: [id])
+  serviceCategory ServiceCategory @relation(fields: [serviceCategoryId], references: [id])
+  tickets         Ticket[]
+
+  @@map("windows")
+}
+
+model Ticket {
+  id                String       @id @default(uuid())
+  branchId          String       @map("branch_id")
+  serviceCategoryId String       @map("service_category_id")
+  windowId          String?      @map("window_id")
+  attendedBy        String?      @map("attended_by")
+  code              String       @db.VarChar(10)
+  status            TicketStatus @default(waiting)
+  calledAt          DateTime?    @map("called_at")
+  completedAt       DateTime?    @map("completed_at")
+  createdAt         DateTime     @default(now()) @map("created_at")
+
+  branch          Branch          @relation(fields: [branchId], references: [id])
+  serviceCategory ServiceCategory @relation(fields: [serviceCategoryId], references: [id])
+  window          Window?         @relation(fields: [windowId], references: [id])
+  attendedByUser  User?           @relation("AttendedBy", fields: [attendedBy], references: [id])
+
+  @@map("tickets")
+}

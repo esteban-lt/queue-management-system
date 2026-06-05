@@ -1,3 +1,4 @@
+import { env } from './shared/plugins/env';
 import { Server } from './server';
 import { Routes } from './routes';
 
@@ -7,7 +8,7 @@ import { Routes } from './routes';
 
 function main() {
   new Server({
-    port: 3000,
+    port: env.port,
     routes: Routes.routes,
   }).start();
 }

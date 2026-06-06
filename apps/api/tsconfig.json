@@ -9,6 +9,12 @@
     "jsx": "react-jsx",
     "allowJs": true,
 
+    // Paths
+    "paths": {
+      "@lib/*": ["./src/shared/lib/*"],
+      "@plugins/*": ["./src/shared/plugins/*"],
+    },
+
     // Bundler mode
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,

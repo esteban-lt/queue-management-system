@@ -11,7 +11,10 @@
 
     // Paths
     "paths": {
+      "@auth/*": ["./src/auth/*"],
+      "@errors/*": ["./src/shared/errors/*"],
       "@lib/*": ["./src/shared/lib/*"],
+      "@organizations/*": ["./src/organizations/*"],
       "@plugins/*": ["./src/shared/plugins/*"],
     },
 

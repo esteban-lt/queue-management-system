@@ -1,4 +1,5 @@
 import express, { Router } from 'express';
+import { errorHandler } from './shared/errors/error-handler';
 
 interface Options {
   port: number;
@@ -20,6 +21,7 @@ export class Server {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(this.routes);
+    this.app.use(errorHandler);
     this.app.listen(this.port, () => {
       console.log(`Server running on port ${this.port}`);
     });

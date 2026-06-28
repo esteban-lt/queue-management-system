@@ -1,15 +1,16 @@
 import { Jwt, Password } from '@plugins/index';
 import { ResponseError } from '@errors/response-error';
+import { slugify } from '@utils/slugify';
 
-import type { OrganizationRepository } from '@organizations/domain/repositories/organization-repository';
 import { CreateOrganizationDto } from '@organizations/domain/dtos/create-organization-dto';
+import type { OrganizationRepository } from '@organizations/domain/repositories/organization-repository';
 
-import type { RegisterUserDto } from '../../domain/dtos/register-user-dto';
-import type { AuthRepository } from '../../domain/repositories/auth-repository';
-import type { AuthenticatedUser } from '../../domain/entities/authenticated-user';
-import { UserMapper } from '../../domain/mappers/user-mapper';
+import { UserMapper } from '@auth/domain/mappers/user-mapper';
+import type { AuthenticatedUser } from '@auth/domain/entities/authenticated-user';
+import type { AuthRepository } from '@auth/domain/repositories/auth-repository';
+import type { RegisterUserDto } from '@auth/domain/dtos/register-user-dto';
 
-export class RegisterUserUseCase {
+export class RegisterUseCase {
 
   constructor(
     private readonly authRepository: AuthRepository,
@@ -23,7 +24,7 @@ export class RegisterUserUseCase {
 
     const [organizationError, createOrganizationDto] = CreateOrganizationDto.create({
       name: registerUserDto.organizationName,
-      slug: registerUserDto.organizationName.toLocaleLowerCase().trim().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+      slug: slugify(registerUserDto.name),
     });
 
     if(organizationError) throw ResponseError.badRequest(organizationError);

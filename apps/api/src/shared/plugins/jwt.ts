@@ -5,7 +5,7 @@ const jwtSecret = new TextEncoder().encode(env.jwtSecret);
 
 export class Jwt {
 
-  public static async sign(payload: Record<string, unknown>, expiresIn: string = '12h'): Promise<string> {
+  public static async sign(payload: Record<string, unknown>, expiresIn: string = '2h'): Promise<string> {
     return new SignJWT(payload)
       .setProtectedHeader({ alg: 'HS256' })
       .setIssuedAt()

@@ -9,12 +9,12 @@ interface Options {
 
 export class Branch {
 
-  public id: string;
-  public organizationId: string;
-  public name: string;
-  public address: string;
-  public isActive: boolean;
-  public createdAt: Date;
+  public readonly id: string;
+  public readonly organizationId: string;
+  public readonly name: string;
+  public readonly address: string;
+  public readonly isActive: boolean;
+  public readonly createdAt: Date;
 
   constructor(options: Options) {
     this.id = options.id; 

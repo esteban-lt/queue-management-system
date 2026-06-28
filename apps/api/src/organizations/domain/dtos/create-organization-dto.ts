@@ -6,6 +6,7 @@ export class CreateOrganizationDto {
   ) {}
 
   public static create(object: { [key: string]: any }): [string?, CreateOrganizationDto?] {
+    if(!object) return ['request body is required'];
     const { name, slug } = object;
 
     if(!name) return ['name is required'];

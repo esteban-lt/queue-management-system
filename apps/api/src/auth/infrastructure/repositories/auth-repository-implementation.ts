@@ -1,7 +1,7 @@
-import type { AuthDatasource } from '../../domain/datasources/auth-datasource';
-import type { User } from '../../domain/entities/user';
-import type { CreateUserData } from '../../domain/interfaces/create-user-data';
-import type { AuthRepository } from '../../domain/repositories/auth-repository';
+import type { AuthDatasource } from '@auth/domain/datasources/auth-datasource';
+import type { User } from '@auth/domain/entities/user';
+import type { CreateUserData } from '@auth/domain/interfaces/create-user-data';
+import type { AuthRepository } from '@auth/domain/repositories/auth-repository';
 
 export class AuthRepositoryImplementation implements AuthRepository {
 

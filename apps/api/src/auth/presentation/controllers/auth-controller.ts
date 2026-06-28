@@ -1,14 +1,15 @@
 import type { Request, Response } from 'express';
-import type { LoginUseCase } from '../../application/use-cases/login-use-case';
-import { RegisterUserUseCase } from '../../application/use-cases/register-user-use-case';
-import { RegisterUserDto } from '../../domain/dtos/register-user-dto';
-import { LoginDto } from '../../domain/dtos/login-dto';
+
+import { LoginUseCase, RegisterUseCase } from '@auth/application/use-cases';
+
+import { RegisterUserDto } from '@auth/domain/dtos/register-user-dto';
+import { LoginDto } from '@auth/domain/dtos/login-dto';
 
 export class AuthController {
 
   constructor (
     private readonly loginUseCase: LoginUseCase,
-    private readonly registerUserUseCase: RegisterUserUseCase,
+    private readonly registerUserUseCase: RegisterUseCase,
   ) {}
 
   public me = async (req: Request, res: Response) => {

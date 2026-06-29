@@ -1,5 +1,7 @@
 import type { AuthDatasource } from '@auth/domain/datasources/auth-datasource';
-import type { User } from '@auth/domain/entities/user';
+;
+import type { User } from '@users/domain/entities/user';
+
 import type { CreateUserData } from '@auth/domain/interfaces/create-user-data';
 import type { AuthRepository } from '@auth/domain/repositories/auth-repository';
 

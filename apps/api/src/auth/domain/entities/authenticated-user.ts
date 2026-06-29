@@ -1,4 +1,4 @@
-import type { User } from './user';
+import type { User } from '@users/domain/entities/user';
 
 interface Options {
   user: Omit<User, 'password'>;

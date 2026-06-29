@@ -1,9 +1,10 @@
 import { prisma } from '@lib/prisma';7
 
+import type { User } from '@users/domain/entities/user';
+import { UserMapper } from '@users/domain/mappers/user-mapper';
+
 import { AuthDatasource } from '@auth/domain/datasources/auth-datasource';
 import type { CreateUserData } from '@auth/domain/interfaces/create-user-data';
-import { User } from '@auth/domain/entities/user';
-import { UserMapper } from '@auth/domain/mappers/user-mapper';
 
 export class PostgresAuthDatasource implements AuthDatasource {
 

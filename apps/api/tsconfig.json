@@ -17,6 +17,7 @@
       "@lib/*": ["./src/shared/lib/*"],
       "@organizations/*": ["./src/organizations/*"],
       "@plugins/*": ["./src/shared/plugins/*"],
+      "@users/*": ["./src/users/*"],
       "@utils/*": ["./src/shared/utils/*"],
     },
 

@@ -1,4 +1,4 @@
-import type { User } from '../entities/user';
+import type { User } from '@users/domain/entities/user';
 import type { CreateUserData } from '../interfaces/create-user-data';
 
 export abstract class AuthDatasource {

@@ -1,10 +1,11 @@
 import { Jwt, Password } from '@plugins/index';
-
-import type { LoginDto } from '../../domain/dtos/login-dto';
-import type { AuthRepository } from '../../domain/repositories/auth-repository';
-import type { AuthenticatedUser } from '../../domain/entities/authenticated-user';
-import { UserMapper } from '../../domain/mappers/user-mapper';
 import { ResponseError } from '@errors/response-error';
+
+import { UserMapper } from '@users/domain/mappers/user-mapper';
+
+import type { LoginDto } from '@auth/domain/dtos/login-dto';
+import type { AuthRepository } from '@auth/domain/repositories/auth-repository';
+import type { AuthenticatedUser } from '@auth/domain/entities/authenticated-user';
 
 export class LoginUseCase {
 

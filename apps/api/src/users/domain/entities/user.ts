@@ -1,9 +1,9 @@
-import type { Role } from '../types/role';
+import type { Role } from '@auth/domain/types/role';
 
 interface Options {
   id: string;
   organizationId: string;
-  branchId?: string;
+  branchId: string;
   name: string;
   email: string;
   password: string;
@@ -16,7 +16,7 @@ export class User {
 
   public readonly id: string;
   public readonly organizationId: string;
-  public readonly branchId?: string;
+  public readonly branchId: string;
   public readonly name: string;
   public readonly email: string;
   public readonly password: string;

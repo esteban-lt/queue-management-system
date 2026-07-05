@@ -6,7 +6,7 @@ export class UserMapper {
     return new User({
       id: object.id,
       organizationId: object.organizationId,
-      branchId: object.branchId || null,
+      branchId: object.branchId,
       name: object.name,
       email: object.email,
       password: object.password,

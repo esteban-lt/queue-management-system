@@ -2,10 +2,11 @@ import { Jwt, Password } from '@plugins/index';
 import { ResponseError } from '@errors/response-error';
 import { slugify } from '@utils/slugify';
 
+import { UserMapper } from '@users/domain/mappers/user-mapper';
+
 import { CreateOrganizationDto } from '@organizations/domain/dtos/create-organization-dto';
 import type { OrganizationRepository } from '@organizations/domain/repositories/organization-repository';
 
-import { UserMapper } from '@auth/domain/mappers/user-mapper';
 import type { AuthenticatedUser } from '@auth/domain/entities/authenticated-user';
 import type { AuthRepository } from '@auth/domain/repositories/auth-repository';
 import type { RegisterUserDto } from '@auth/domain/dtos/register-user-dto';

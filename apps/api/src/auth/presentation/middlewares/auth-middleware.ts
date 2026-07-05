@@ -39,4 +39,12 @@ export class AuthMiddleware {
     
     next();
   }
+
+  public static verifyRole = (...allowedRoles: Role[]) => {
+    return (req: Request, _res: Response, next: NextFunction) => {
+      if(!req.user) throw ResponseError.unauthorized('unauthorized');
+      if(!allowedRoles.includes(req.user.role)) throw ResponseError.forbidden();
+      next();
+    }
+  }
 }

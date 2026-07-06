@@ -21,6 +21,7 @@ model Organization {
 
   branches Branch[]
   users    User[]
+  serviceCategories ServiceCategory[]
 
   @@map("organizations")
 }
@@ -35,7 +36,6 @@ model Branch {
 
   organization       Organization      @relation(fields: [organizationId], references: [id])
   users              User[]
-  serviceCategories  ServiceCategory[]
   windows            Window[]
   tickets            Ticket[]
 
@@ -79,17 +79,17 @@ enum TicketStatus {
 }
 
 model ServiceCategory {
-  id                  String   @id @default(uuid())
-  branchId            String   @map("branch_id")
-  name                String   @db.VarChar(127)
-  prefix              String   @db.VarChar(2)
-  avgAttentionMinutes Int?     @map("avg_attention_minutes")
-  isActive            Boolean  @default(true) @map("is_active")
-  createdAt           DateTime @default(now()) @map("created_at")
+  id                 String   @id @default(uuid())
+  organizationId     String   @map("organization_id")
+  name               String   @db.VarChar(127)
+  prefix             String   @db.VarChar(2)
+  avgAttentionMinutes Int?    @map("avg_attention_minutes")
+  isActive           Boolean  @default(true) @map("is_active")
+  createdAt          DateTime @default(now()) @map("created_at")
 
-  branch  Branch   @relation(fields: [branchId], references: [id])
-  windows Window[]
-  tickets Ticket[]
+  organization Organization @relation(fields: [organizationId], references: [id])
+  windows      Window[]
+  tickets      Ticket[]
 
   @@map("service_categories")
 }

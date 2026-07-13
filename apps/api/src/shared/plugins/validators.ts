@@ -3,6 +3,7 @@ export class Validators {
   static readonly #emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   static readonly #passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
   static readonly #nameRegex = /^[a-zA-Z0-9 ]+$/;
+  static readonly #prefixRegex = /^[a-zA-Z0-9]+$/;
 
   static isEmail(email: string): boolean {
     return this.#emailRegex.test(email);
@@ -14,5 +15,9 @@ export class Validators {
 
   static isAlphanumeric(value: string): boolean {
     return this.#nameRegex.test(value);
+  }
+
+  static isPrefix(value: string): boolean {
+    return this.#prefixRegex.test(value);
   }
 }

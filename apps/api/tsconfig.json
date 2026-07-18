@@ -21,6 +21,7 @@
       "@tickets/*": ["./src/tickets/*"],
       "@users/*": ["./src/users/*"],
       "@utils/*": ["./src/shared/utils/*"],
+      "@windows/*": ["./src/windows/*"],
     },
 
     // Bundler mode

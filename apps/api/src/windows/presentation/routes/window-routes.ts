@@ -1,5 +1,7 @@
 import { Router } from 'express';
 
+import { AuthMiddleware } from '@auth/presentation/middlewares/auth-middleware';
+import { TicketRoutes } from '@tickets/presentation/routes/ticket-routes';
 import { WindowController } from '../controllers/window-controller';
 
 import { WindowRepositoryImplementation } from '@windows/infrastructure/repositories/window-repository-implementation';
@@ -32,6 +34,7 @@ export class WindowRoutes {
   public static get routes(): Router {
     const router = Router();
     const windowController = WindowRoutes.controller;
+    const ticketController = TicketRoutes.controller;
 
     router.get('/', windowController.getWindows);
     router.get('/:id', windowController.getWindowById);
@@ -39,6 +42,14 @@ export class WindowRoutes {
     router.post('/', windowController.createWindow);
 
     router.patch('/:id', windowController.updateWindowById);
+
+    // Tickets
+    router.get('/:windowId/tickets', ticketController.getTicketByWindowId);
+
+    router.post('/:windowId/tickets/call-next', AuthMiddleware.verifyRole('operator', 'manager'), ticketController.callNextTicket);
+    router.post('/:windowId/tickets/start-attention', AuthMiddleware.verifyRole('operator', 'manager'), ticketController.startAttention);
+    router.post('/:windowId/tickets/complete', AuthMiddleware.verifyRole('operator', 'manager'), ticketController.completeTicket);
+    router.post('/:windowId/tickets/skip', AuthMiddleware.verifyRole('operator', 'manager'), ticketController.skipTicket);
 
     return router;
   }

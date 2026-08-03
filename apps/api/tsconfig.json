@@ -18,8 +18,10 @@
       "@organizations/*": ["./src/organizations/*"],
       "@plugins/*": ["./src/shared/plugins/*"],
       "@service-categories/*": ["./src/service-categories/*"],
+      "@tickets/*": ["./src/tickets/*"],
       "@users/*": ["./src/users/*"],
       "@utils/*": ["./src/shared/utils/*"],
+      "@windows/*": ["./src/windows/*"],
     },
 
     // Bundler mode

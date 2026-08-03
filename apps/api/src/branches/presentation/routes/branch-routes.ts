@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { BranchController } from '../controllers/branch-controller';
+import { TicketRoutes } from '@tickets/presentation/routes/ticket-routes';
 
 import { PostgresBranchDatasource } from '@branches/infrastructure/datasources/postgres-branch-datasource';
 import { BranchRepositoryImplementation } from '@branches/infrastructure/repositories/branch-repository-implementation';
@@ -39,6 +40,7 @@ export class BranchRoutes {
   public static get routes() {
     const router = Router();
     const branchController = BranchRoutes.controller;
+    const ticketController = TicketRoutes.controller;
 
     router.get('/', branchController.getBranches);
     router.get('/:id', branchController.getBranchById);
@@ -47,6 +49,11 @@ export class BranchRoutes {
 
     router.patch('/:id', branchController.updateBranchById);
     router.patch('/:id/toggle', branchController.toggleBranchById);
+
+    // Tickets
+    router.get('/:branchId/tickets', ticketController.getTicketsByBranchId);
+
+    router.post('/:branchId/tickets', ticketController.createTicket);
 
     return router;
   }

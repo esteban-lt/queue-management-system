@@ -126,5 +126,7 @@ model Ticket {
   window          Window?         @relation(fields: [windowId], references: [id])
   attendedByUser  User?           @relation("AttendedBy", fields: [attendedBy], references: [id])
 
+  @@unique([branchId, code])
+
   @@map("tickets")
 }
